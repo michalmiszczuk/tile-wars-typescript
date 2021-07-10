@@ -148,7 +148,7 @@ function Board() {
             planes: 0
         },
         currentTile: {
-            id: '0',
+            id: '',
             y: 0,
             x: 0,
             active: false,
