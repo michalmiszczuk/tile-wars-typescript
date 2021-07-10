@@ -95,8 +95,8 @@ function Board() {
         switch (action.type) {
             case ACTIONS.SETBOARD: return { ...gameState, board: action.payload.newBoard }
             case ACTIONS.SETINTERVALID: return { ...gameState, intervalId: action.payload.id }
-            // case ACTIONS.SETPLAYER1COINS: return { ...gameState, player1: { coins: gameState.player1.coins + action.payload.activeFields } }
-            // case ACTIONS.SETPLAYER2COINS: return { ...gameState, player2: { coins: gameState.player2.coins + action.payload.activeFields } }
+            case ACTIONS.SETPLAYER1COINS: return { ...gameState, player1: { ...gameState.player1, coins: gameState.player1.coins + action.payload.activeFields } }
+            case ACTIONS.SETPLAYER2COINS: return { ...gameState, player2: { ...gameState.player2, coins: gameState.player2.coins + action.payload.activeFields } }
             case ACTIONS.SETPLAYER1UNITS:
                 return { ...gameState, player1: { soldiers: action.payload.totalSoldiers1, tanks: action.payload.totalTanks1, planes: action.payload.totalPlanes1, coins: gameState.player1.coins } }
             case ACTIONS.SETPLAYER2UNITS:
@@ -110,8 +110,8 @@ function Board() {
             case ACTIONS.SETSOLDIERBASE: return { ...gameState, soldierBase: true, tankBase: false, planeBase: false }
             case ACTIONS.SETTANKBASE: return { ...gameState, tankBase: true, soldierBase: false, planeBase: false }
             case ACTIONS.SETPLANEBASE: return { ...gameState, planeBase: true, soldierBase: false, tankBase: false }
-            case ACTIONS.DEDUCTCOINS && gameState.player === 1: return { ...gameState, player1: { ...player1, coins: gameState.player1.coins - action.payload } }
-            case ACTIONS.DEDUCTCOINS && gameState.player === 2: return { ...gameState, player2: { ...player2, coins: gameState.player2.coins - action.payload } }   
+            case ACTIONS.DEDUCTCOINS && gameState.player === 1: return { ...gameState, player1: { ...gameState.player1, coins: gameState.player1.coins - action.payload } }
+            case ACTIONS.DEDUCTCOINS && gameState.player === 2: return { ...gameState, player2: { ...gameState.player2, coins: gameState.player2.coins - action.payload } }   
             default: return gameState
             // case ACTIONS.RESETTILE: return {}
             // case ACTIONS.GAMESTARTED: return { ...gameState, gameStarted: true }
