@@ -1,0 +1,124 @@
+.main-container {
+  background-color: #555;
+  display: flex;
+  flex-flow: row;
+  height: 100vh;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.player-container {
+  align-items: center;
+  display: flex;
+  flex-flow: column;
+  width: 50%;
+}
+
+.player-menu {
+  background-color: #666;
+  border-radius: 10px;
+  border: 1px solid white;
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+  padding: 0.5rem 0.5rem;
+  width: 50%;
+}
+
+.board {
+  background-color: rgb(132, 236, 158);
+  border: 1px solid black;
+  display: grid;
+  grid-template-columns: repeat(10, 4rem);
+  grid-template-rows: repeat(10, 4rem);
+  width: 100%;
+}
+
+.coins {
+  color: white;
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 1rem;
+  width: fit-content;
+}
+
+.coin-icon {
+  margin-right: 0.5rem;
+}
+
+.end-turn {
+  background-color: #444;
+  border-radius: 10px;
+  border: 2px solid white;
+  color: white;
+  padding: 1rem 1rem;
+  transition: 500ms;
+}
+
+.end-turn:hover {
+  background-color: #888;
+  cursor: pointer;
+  transition: 300ms;
+}
+
+.player-menu-buttons {
+  align-items: center;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+  padding: 1rem 0;
+}
+
+.build-soldier-base {
+  background-color: slateblue;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: 300ms;
+}
+
+.build-soldier-base:hover {
+  background-color: rgb(140, 130, 204);
+  transition: 300ms;
+}
+
+.build-tank-base {
+  background-color: yellowgreen;
+  cursor: pointer;
+}
+
+.build-plane-base {
+  background-color: rgb(17, 247, 255);
+  cursor: pointer;
+}
+
+.build-button {
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid white;
+  display: flex;
+  flex-flow: row wrap;
+  font-size: 0.8rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+  padding: 0.7rem 0rem;
+  width: 100%;
+}
+
+.price-build {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  margin-top: 0.2rem;
+  width: 40%;
+}
+
+.info-for-player {
+  color: white;
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
+}
+
+.build-icon {
+  margin-right: 0.5rem;
+}
