@@ -25,10 +25,9 @@ interface TileProps {
     onTileClick: (x: number, y: number) => void;
     onDragStart: (x: number, y: number) => void;
     onDrop: (x: number, y: number) => void;
-    onDragEnd: () => void;
 }
 
-function Tile({ tile, onTileClick, currentPlayer, onDragStart, onDragEnd, onDrop, buildingActive }: TileProps) {
+function Tile({ tile, onTileClick, currentPlayer, onDragStart, onDrop, buildingActive }: TileProps) {
 
     const { soldiers, tanks, planes, active, isHighlighted, player, hasMove, hasPlaneBase, hasTankBase, hasSoldierBase } = tile
 
@@ -46,9 +45,6 @@ function Tile({ tile, onTileClick, currentPlayer, onDragStart, onDragEnd, onDrop
         highlighted: isHighlighted || (buildingActive && player === currentPlayer),
         hasNoMove1: !hasMove && player === 1,
         hasNoMove2: !hasMove && player === 2,
-        hasPlaneBase: hasPlaneBase,
-        hasTankBase: hasTankBase,
-        hasSoldierBase: hasSoldierBase
     })
 
     return (
@@ -56,21 +52,20 @@ function Tile({ tile, onTileClick, currentPlayer, onDragStart, onDragEnd, onDrop
             draggable={player === currentPlayer && active && hasMove}
             onDragStart={() => onDragStart(tile.y, tile.x)}
             onDragOver={allowDrop}
-            onDragEnd={onDragEnd}
             onDrop={() => onDrop(tile.y, tile.x)}
             onClick={() => onTileClick(tile.y, tile.x)}
             className={tileClass}
         >
             {active && <div className="forces">
-                <img draggable="false" src={soldiersIcon} width="20px" height="20px" />
+            <img className={hasSoldierBase ? "army-icon built" : "army-icon"} draggable="false" src={soldiersIcon} width="20px" height="20px" />
                 <span>{soldiers}</span>
             </div>}
             {active && <div className="forces">
-                <img draggable="false" src={tankIcon} width="20px" height="20px" />
+                <img className={hasTankBase ? "army-icon built" : "army-icon"} draggable="false" src={tankIcon} width="20px" height="20px" />
                 <span>{tanksRounded}</span>
             </div>}
             {active && <div className="forces">
-                <img draggable="false" src={planeIcon} width="20px" height="20px" />
+                <img className={hasPlaneBase ? "army-icon built" : "army-icon"} draggable="false" src={planeIcon} width="20px" height="20px" />
                 <span>{planesRounded}</span>
             </div>}
         </div>

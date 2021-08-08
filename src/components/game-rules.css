@@ -1,0 +1,44 @@
+.game-rules {
+  width: 40rem;
+  height: 20rem;
+  border: 1px solid white;
+  background-color: #555;
+  position: absolute;
+  top: calc(50% - 12rem);
+  left: calc(50% - 22rem);
+  border-radius: 10px;
+  padding: 2rem 2rem;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  animation: game-rules 500ms ease-out;
+}
+
+.game-title {
+  color: cornsilk;
+  font-size: 1.5rem;
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.rules-icon {
+  position: absolute;
+  top: 2rem;
+  right: 5%;
+  cursor: pointer;
+  background-color: transparent;
+  border-radius: 20px;
+}
+
+.rules-title {
+  color: white;
+  padding: 1rem 0;
+  /* box-shadow: 5px 5px 10px 2px #666; */
+}
+
+.rules-text {
+  color: white;
+  padding: 0 2rem 2rem 1rem;
+  box-shadow: 5px 5px 10px 5px #666;
+  text-align: center;
+}

@@ -7,6 +7,14 @@
   width: 100%;
 }
 
+.background {
+  /* clip-path: polygon(76% 4%, 0 66%, 100% 100%); */
+}
+
+.blurred {
+  filter: blur(2px);
+}
+
 .player-container {
   align-items: center;
   display: flex;
@@ -17,22 +25,24 @@
 .player-menu {
   background-color: #666;
   border-radius: 10px;
-  border: 1px solid white;
   color: white;
   display: flex;
   justify-content: center;
   margin: 1rem 0;
   padding: 0.5rem 0.5rem;
   width: 50%;
+  box-shadow: 10px 10px 15px #444;
 }
 
 .board {
-  background-color: rgb(132, 236, 158);
-  border: 1px solid black;
+  /* background-color: rgb(132, 236, 158); */
+  background: rgb(132, 236, 158);
+  background: linear-gradient(157deg, rgba(132, 236, 158, 1) 33%, rgba(0, 181, 255, 1) 98%);
   display: grid;
   grid-template-columns: repeat(10, 4rem);
   grid-template-rows: repeat(10, 4rem);
-  width: 100%;
+  border-radius: 20px;
+  box-shadow: 12px 15px 20px 15px #444;
 }
 
 .coins {
@@ -41,6 +51,9 @@
   justify-content: space-evenly;
   margin-bottom: 1rem;
   width: fit-content;
+  padding: 0.5rem 0.5rem;
+  border-radius: 10px;
+  box-shadow: 9px 5px 10px 5px #444;
 }
 
 .coin-icon {
@@ -50,10 +63,11 @@
 .end-turn {
   background-color: #444;
   border-radius: 10px;
-  border: 2px solid white;
+  border: none;
   color: white;
   padding: 1rem 1rem;
   transition: 500ms;
+  box-shadow: 10px 10px 15px #444;
 }
 
 .end-turn:hover {
@@ -67,35 +81,50 @@
   display: flex;
   flex-flow: column;
   justify-content: space-evenly;
-  padding: 1rem 0;
+  margin-top: 1rem;
+  padding: 2rem 2rem;
+  border-radius: 20px;
+  box-shadow: 10px 5px 15px 2px #444;
 }
 
 .build-soldier-base {
-  background-color: slateblue;
+  background-color: #9284ec;
   cursor: pointer;
   margin-top: 1rem;
   transition: 300ms;
 }
 
 .build-soldier-base:hover {
-  background-color: rgb(140, 130, 204);
+  background-color: #849eec;
   transition: 300ms;
 }
 
 .build-tank-base {
-  background-color: yellowgreen;
+  background-color: #ecbf84;
+  transition: 300ms;
   cursor: pointer;
 }
 
+.build-tank-base:hover {
+  background-color: #ecbf84;
+  transition: 300ms;
+}
+
 .build-plane-base {
-  background-color: rgb(17, 247, 255);
+  background-color: #ec8b84;
+  transition: 300ms;
   cursor: pointer;
+}
+
+.build-plane-base:hover {
+  background-color: rgb(162, 252, 255);
+  transition: 300ms;
 }
 
 .build-button {
   align-items: center;
   border-radius: 10px;
-  border: 1px solid white;
+  border: none;
   display: flex;
   flex-flow: row wrap;
   font-size: 0.8rem;
@@ -103,6 +132,8 @@
   margin-bottom: 1rem;
   padding: 0.7rem 0rem;
   width: 100%;
+  box-shadow: 10px 10px 15px #444;
+  color: cornsilk;
 }
 
 .price-build {
@@ -113,7 +144,13 @@
   width: 40%;
 }
 
-.info-for-player {
+.army-info-wrapper {
+  border-radius: 20px;
+  padding: 1rem 1rem;
+  box-shadow: 8px 8px 10px 2px #444;
+}
+
+.army-info {
   color: white;
   font-size: 0.8rem;
   margin-bottom: 0.3rem;
@@ -121,4 +158,56 @@
 
 .build-icon {
   margin-right: 0.5rem;
+}
+
+@keyframes game-rules {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 766px) {
+  .main-container {
+    background-color: #555;
+    display: flex;
+    flex-flow: column;
+    /* height: 100vh; */
+    padding: 1rem 0;
+    width: 100%;
+  }
+
+  .player-container {
+    align-items: center;
+    display: flex;
+    flex-flow: row;
+    order: 2;
+  }
+
+  .player-menu {
+    background-color: #666;
+    border-radius: 10px;
+    color: white;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    margin: 1rem 0;
+    padding: 0.5rem 0.5rem;
+    width: 50%;
+    box-shadow: 10px 10px 15px #444;
+  }
+
+  .board {
+    /* background-color: rgb(132, 236, 158); */
+    background: rgb(132, 236, 158);
+    background: linear-gradient(157deg, rgba(132, 236, 158, 1) 33%, rgba(0, 181, 255, 1) 98%);
+    display: grid;
+    grid-template-columns: repeat(10, 2rem);
+    grid-template-rows: repeat(10, 2rem);
+    border-radius: 20px;
+    box-shadow: 12px 15px 20px 15px #444;
+    order: 1;
+  }
 }

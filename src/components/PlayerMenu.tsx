@@ -30,10 +30,12 @@ function PlayerMenu({ id, playerInfo, currentPlayer, turnCount, onFinishTurn, se
                 <img draggable="false" className="coin-icon" src={coin} width="20px" height="20px" />
                 {coins}
             </div>
-            <div className="info-for-player">TURN : {Math.floor(turnCount)}</div>
-            <div className="info-for-player">SOLDIERS: {Math.floor(soldiers)} </div>
-            <div className="info-for-player">TANKS:  {Math.floor(tanks)} </div>
-            <div className="info-for-player">PLANES:  {Math.floor(planes)} </div>
+            <div className="army-info-wrapper">
+                <div className="army-info">TURN : {Math.floor(turnCount)}</div>
+                <div className="army-info">SOLDIERS: {Math.floor(soldiers)} </div>
+                <div className="army-info">TANKS:  {Math.floor(tanks)} </div>
+                <div className="army-info">PLANES:  {Math.floor(planes)} </div>
+            </div>
             {currentPlayer === id &&
                 <PlayerButtons
                     onFinishTurn={onFinishTurn}

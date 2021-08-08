@@ -1,4 +1,6 @@
-export function countSoldiers(board, player) {
+import { Tile } from "../utils/classes_types";
+
+export function countSoldiers(board : Tile[], player : number) {
   let total = board
     .filter(tile => tile.player === player)
     .reduce((currentTotal, tile) => {
@@ -7,7 +9,7 @@ export function countSoldiers(board, player) {
 
   return total;
 }
-export function countTanks(board, player) {
+export function countTanks(board: Tile[], player: number) {
   let total = board
     .filter(tile => tile.player === player)
     .reduce((currentTotal, tile) => {
@@ -16,7 +18,7 @@ export function countTanks(board, player) {
 
   return total;
 }
-export function countPlanes(board, player) {
+export function countPlanes(board: Tile[], player: number) {
   let total = board
     .filter(tile => tile.player === player)
     .reduce((currentTotal, tile) => {

@@ -1,5 +1,5 @@
 .tile {
-  border: 1px solid grey;
+  border: 1px solid #555;
   display: flex;
   flex-flow: column wrap;
   justify-content: space-evenly;
@@ -34,28 +34,23 @@
   transition: 120ms;
 }
 
-.hasSoldierBase:before {
-  content: "";
-  position: absolute;
-  top: 20%;
-  left: 0;
-  width: 10px;
-  height: 10px;
-  background-color: slateblue;
-  border-radius: 5px;
+.army-icon {
+  border-radius: 10px;
+  box-shadow: 4px 0px 17px 1px #fff;
 }
 
-.hasTankBase::after {
-  content: "";
-  position: absolute;
-  top: 60%;
-  left: 0;
-  width: 10px;
-  height: 10px;
-  background-color: yellowgreen;
-  border-radius: 5px;
+.built {
+  animation: built 1s infinite ease-in-out;
 }
 
-.hasPlaneBase {
-  border: 2px solid rgb(17, 247, 255);
+@keyframes built {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
