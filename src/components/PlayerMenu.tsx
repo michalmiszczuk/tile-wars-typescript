@@ -11,39 +11,41 @@ interface PlayerMenuProps {
         tanks: number;
         planes: number;
     }
-    currentPlayer: number;
     turnCount: number;
+    currentPlayer: number;
     onFinishTurn: () => void;
     setSoldierBase: () => void;
     setTankBase: () => void;
     setPlaneBase: () => void;
 }
 
-function PlayerMenu({ id, playerInfo, currentPlayer, turnCount, onFinishTurn, setSoldierBase, setTankBase, setPlaneBase }: PlayerMenuProps) {
+function PlayerMenu({ id, currentPlayer, playerInfo, turnCount, onFinishTurn, setSoldierBase, setTankBase, setPlaneBase }: PlayerMenuProps) {
 
     const { coins, soldiers, tanks, planes } = playerInfo
 
     return (
+       
         <div className="player-container">
-            <div className="player-menu">PLAYER {id}</div>
-            <div className="coins">
-                <img draggable="false" className="coin-icon" src={coin} width="20px" height="20px" />
-                {coins}
+            <div className="player-info-bar">
+                <div className="player-menu">PLAYER {id}</div>
+                <div className="coins">
+                    <img draggable="false" className="coin-icon" src={coin} width="20px" height="20px" />
+                    {coins}
+                </div>
+                <div className="army-info-wrapper">
+                    <div className="army-info">TURN : {Math.floor(turnCount)}</div>
+                    <div className="army-info">SOLDIERS: {Math.floor(soldiers)} </div>
+                    <div className="army-info">TANKS:  {Math.floor(tanks)} </div>
+                    <div className="army-info">PLANES:  {Math.floor(planes)} </div>
+                </div>
             </div>
-            <div className="army-info-wrapper">
-                <div className="army-info">TURN : {Math.floor(turnCount)}</div>
-                <div className="army-info">SOLDIERS: {Math.floor(soldiers)} </div>
-                <div className="army-info">TANKS:  {Math.floor(tanks)} </div>
-                <div className="army-info">PLANES:  {Math.floor(planes)} </div>
-            </div>
-            {currentPlayer === id &&
-                <PlayerButtons
+           
+              {currentPlayer === id &&  <PlayerButtons
                     onFinishTurn={onFinishTurn}
                     setSoldierBase={setSoldierBase}
                     setTankBase={setTankBase}
                     setPlaneBase={setPlaneBase}
-                />
-            }
+                />}
         </div>
     );
 }

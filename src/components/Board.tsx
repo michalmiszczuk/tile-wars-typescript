@@ -22,6 +22,7 @@ const ACTIONS = {
     SETSOLDIERBASE: 'setsoldierbase',
     SETTANKBASE: 'settankbase',
     SETTURNCOUNT: 'setturncount',
+    RESTARTGAME: 'restartgame'
 }
 
 function Board() {
@@ -44,6 +45,7 @@ function Board() {
             case ACTIONS.SETPLANEBASE: return { ...gameState, planeBase: true, soldierBase: false, tankBase: false }
             case ACTIONS.DEDUCTCOINS_P1: return { ...gameState, player1: {...gameState.player1, coins: gameState.player1.coins - action.payload} }
             case ACTIONS.DEDUCTCOINS_P2: return { ...gameState, player2: {...gameState.player2, coins: gameState.player2.coins - action.payload} }
+            case ACTIONS.RESTARTGAME: return {...intialState}
            
             default: return gameState
         }
@@ -53,13 +55,13 @@ function Board() {
         board: getBoard(),
         player: 1,
         player1: {
-            coins: 10000,
+            coins: 0,
             soldiers: 0,
             tanks: 0,
             planes: 0
         },
         player2: {
-            coins: 10000,
+            coins: 0,
             soldiers: 0,
             tanks: 0,
             planes: 0
@@ -138,12 +140,15 @@ function Board() {
     
     useEffect(() => {
         const flattenedBoard = board.flat()
-        if (turnCount > 1) {
+        if (turnCount > 2) {
             const gameContinue = flattenedBoard.find(tile => tile.player === 1)
             const gameContinue2 = flattenedBoard.find(tile => tile.player === 2)
-            if (!gameContinue || !gameContinue2) return alert(`Player ${player} has won !`)
+            if (!gameContinue || !gameContinue2) {
+                alert(`Player ${player} has won !`);
+                dispatch({type: ACTIONS.RESTARTGAME})
+            }
         }
-    }, [])
+    }, [player])
 
     const handleEndTurn = () => {
         const newPlayer = player === 1 ? 2 : 1
@@ -161,7 +166,7 @@ function Board() {
 
     const handleTileClick = (y: number, x: number) => {
         const clickedTile = board[y][x]
-        console.log(clickedTile)
+      
         if (!clickedTile.active && hasNewMove) {
             const newBoard = board.map(row => row.map(tile => {
                 if (tile.id === clickedTile.id)
@@ -218,6 +223,7 @@ function Board() {
 
     const handleOnDrop = (y: number, x: number) => {
         const {soldiers, tanks, planes} = currentTile
+        // console.log("THIS", y, x)
         const droppedTile = board[y][x]
         const newBoard = board.map(row => row.map(tile => {
             if (tile.id === droppedTile.id && droppedTile.isHighlighted && droppedTile.player !== player
@@ -256,20 +262,31 @@ function Board() {
         dispatch({ type: ACTIONS.SETBOARD, payload: { newBoard } })
     }
     
+    const isMobile = window.screen.width < 768 ? true: false!
 
     return (
-        <div>
-            <div className={showGameRules ? "main-container blurred" : "main-container "}>
-                <PlayerMenu
-                    id={1}
-                    playerInfo={player1}
-                    currentPlayer={player}
-                    turnCount={turnCount}
-                    onFinishTurn={handleEndTurn}
-                    setSoldierBase={() => dispatch({ type: ACTIONS.SETSOLDIERBASE })}
-                    setTankBase={() => dispatch({ type: ACTIONS.SETTANKBASE })}
-                    setPlaneBase={() => dispatch({ type: ACTIONS.SETPLANEBASE })}
-                />
+        <div className="main-wrapper">
+            <div className={showGameRules ? "main-container blurred" : "main-container"}>
+                {isMobile || <PlayerMenu
+                            id={1}
+                            playerInfo={player1}
+                            turnCount={turnCount}
+                            onFinishTurn={handleEndTurn}
+                            setSoldierBase={() => dispatch({ type: ACTIONS.SETSOLDIERBASE })}
+                            setTankBase={() => dispatch({ type: ACTIONS.SETTANKBASE })}
+                            setPlaneBase={() => dispatch({ type: ACTIONS.SETPLANEBASE })}
+                            currentPlayer={player}
+                        />}
+                    {player === 1 && isMobile && <PlayerMenu
+                        id={1}
+                        playerInfo={player1}
+                        turnCount={turnCount}
+                        onFinishTurn={handleEndTurn}
+                        setSoldierBase={() => dispatch({ type: ACTIONS.SETSOLDIERBASE })}
+                        setTankBase={() => dispatch({ type: ACTIONS.SETTANKBASE })}
+                        setPlaneBase={() => dispatch({ type: ACTIONS.SETPLANEBASE })}
+                        currentPlayer={player}
+                    />}
                 <div className="board-container">
                     <div className="board">
                         {board.map(row => row.map(tile =>
@@ -285,19 +302,29 @@ function Board() {
                         ))}
                     </div>
                 </div>
-                <PlayerMenu
-                    id={2}
-                    playerInfo={player2}
-                    currentPlayer={player}
-                    turnCount={turnCount}
-                    onFinishTurn={handleEndTurn}
-                    setSoldierBase={() => dispatch({ type: ACTIONS.SETSOLDIERBASE })}
-                    setTankBase={() => dispatch({ type: ACTIONS.SETTANKBASE })}
-                    setPlaneBase={() => dispatch({ type: ACTIONS.SETPLANEBASE })}
-                />
+                    {isMobile || <PlayerMenu
+                            id={2}
+                            playerInfo={player2}
+                            turnCount={turnCount}
+                            onFinishTurn={handleEndTurn}
+                            setSoldierBase={() => dispatch({ type: ACTIONS.SETSOLDIERBASE })}
+                            setTankBase={() => dispatch({ type: ACTIONS.SETTANKBASE })}
+                            setPlaneBase={() => dispatch({ type: ACTIONS.SETPLANEBASE })}
+                            currentPlayer={player}
+                        />}
+                    {player === 2 && isMobile && <PlayerMenu
+                        id={2}
+                        playerInfo={player2}
+                        turnCount={turnCount}
+                        onFinishTurn={handleEndTurn}
+                        setSoldierBase={() => dispatch({ type: ACTIONS.SETSOLDIERBASE })}
+                        setTankBase={() => dispatch({ type: ACTIONS.SETTANKBASE })}
+                        setPlaneBase={() => dispatch({ type: ACTIONS.SETPLANEBASE })}
+                        currentPlayer={player}
+                    />}
             </div>
             {showGameRules && <GameRules setShowGameRules={() => setShowGameRules(false)}/>}
-        </div>
+         </div>
     );
 }
 

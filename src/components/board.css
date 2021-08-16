@@ -1,37 +1,16 @@
-.main-container {
-  background-color: #555;
-  display: flex;
-  flex-flow: row;
-  height: 100vh;
-  padding: 2rem 0;
-  width: 100%;
+.main-wrapper {
 }
 
-.background {
-  /* clip-path: polygon(76% 4%, 0 66%, 100% 100%); */
+.main-container {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(142deg, rgba(2, 0, 36, 1) 0%, rgba(79, 79, 108, 1) 51%);
+  display: flex;
+  padding: 2rem 0;
+  height: 100vh;
 }
 
 .blurred {
   filter: blur(2px);
-}
-
-.player-container {
-  align-items: center;
-  display: flex;
-  flex-flow: column;
-  width: 50%;
-}
-
-.player-menu {
-  background-color: #666;
-  border-radius: 10px;
-  color: white;
-  display: flex;
-  justify-content: center;
-  margin: 1rem 0;
-  padding: 0.5rem 0.5rem;
-  width: 50%;
-  box-shadow: 10px 10px 15px #444;
 }
 
 .board {
@@ -41,8 +20,35 @@
   display: grid;
   grid-template-columns: repeat(10, 4rem);
   grid-template-rows: repeat(10, 4rem);
-  border-radius: 20px;
-  box-shadow: 12px 15px 20px 15px #444;
+  border-radius: 10px;
+  animation: board 10s infinite ease;
+}
+
+.player-container {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 100%;
+}
+
+.player-menu {
+  background-color: hsl(240, 16%, 57%);
+  border-radius: 10px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+  padding: 0.5rem 0.5rem;
+  box-shadow: 5px 5px 10px #333;
+  width: 50%;
+  font-style: italic1;
+}
+
+.player-info-bar {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 100%;
 }
 
 .coins {
@@ -51,27 +57,44 @@
   justify-content: space-evenly;
   margin-bottom: 1rem;
   width: fit-content;
-  padding: 0.5rem 0.5rem;
+  padding: 0.7rem 0.7rem;
   border-radius: 10px;
-  box-shadow: 9px 5px 10px 5px #444;
+  box-shadow: 5px 5px 10px #333;
+  min-width: 15%;
 }
 
 .coin-icon {
   margin-right: 0.5rem;
 }
 
+.army-info-wrapper {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  border-radius: 20px;
+  padding: 1rem 1rem;
+  box-shadow: 5px 5px 10px #333;
+  width: 40%;
+}
+
+.army-info {
+  color: white;
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
+}
+
 .end-turn {
-  background-color: #444;
+  background-color: hsl(0, 0%, 27%);
   border-radius: 10px;
   border: none;
   color: white;
   padding: 1rem 1rem;
   transition: 500ms;
-  box-shadow: 10px 10px 15px #444;
+  box-shadow: 5px 5px 10px #333;
 }
 
 .end-turn:hover {
-  background-color: #888;
+  background-color: hsl(0, 0%, 17%);
   cursor: pointer;
   transition: 300ms;
 }
@@ -84,40 +107,41 @@
   margin-top: 1rem;
   padding: 2rem 2rem;
   border-radius: 20px;
-  box-shadow: 10px 5px 15px 2px #444;
+  box-shadow: 10px 5px 15px 2px #333;
+  width: fit-content;
 }
 
 .build-soldier-base {
-  background-color: #9284ec;
+  background-color: hsl(248, 73%, 72%);
   cursor: pointer;
   margin-top: 1rem;
   transition: 300ms;
 }
 
 .build-soldier-base:hover {
-  background-color: #849eec;
+  background-color: hsl(248, 73%, 62%);
   transition: 300ms;
 }
 
 .build-tank-base {
-  background-color: #ecbf84;
+  background-color: hsl(34, 83%, 72%);
   transition: 300ms;
   cursor: pointer;
 }
 
 .build-tank-base:hover {
-  background-color: #ecbf84;
+  background-color: hsl(34, 73%, 62%);
   transition: 300ms;
 }
 
 .build-plane-base {
-  background-color: #ec8b84;
+  background-color: hsl(4, 73%, 72%);
   transition: 300ms;
   cursor: pointer;
 }
 
 .build-plane-base:hover {
-  background-color: rgb(162, 252, 255);
+  background-color: hsl(4, 73%, 62%);
   transition: 300ms;
 }
 
@@ -133,7 +157,7 @@
   padding: 0.7rem 0rem;
   width: 100%;
   box-shadow: 10px 10px 15px #444;
-  color: cornsilk;
+  color: white;
 }
 
 .price-build {
@@ -142,18 +166,6 @@
   justify-content: space-evenly;
   margin-top: 0.2rem;
   width: 40%;
-}
-
-.army-info-wrapper {
-  border-radius: 20px;
-  padding: 1rem 1rem;
-  box-shadow: 8px 8px 10px 2px #444;
-}
-
-.army-info {
-  color: white;
-  font-size: 0.8rem;
-  margin-bottom: 0.3rem;
 }
 
 .build-icon {
@@ -169,21 +181,51 @@
   }
 }
 
+@keyframes board {
+  0% {
+    box-shadow: 12px 15px 20px 15px #444;
+  }
+  50% {
+    box-shadow: -6px -7px 20px 15px #333;
+  }
+  100% {
+    box-shadow: 12px 15px 20px 15px #444;
+  }
+}
 @media (max-width: 766px) {
+  .main-wrapper {
+    /* clip-path: polygon(76% 4%, 0 66%, 100% 100%); */
+  }
+
   .main-container {
     background-color: #555;
     display: flex;
     flex-flow: column;
-    /* height: 100vh; */
-    padding: 1rem 0;
-    width: 100%;
+    align-items: center;
+    padding: 0;
+    /* height: 92vh; */
   }
 
+  .board {
+    /* background-color: rgb(132, 236, 158); */
+    background: rgb(132, 236, 158);
+    background: linear-gradient(157deg, rgba(132, 236, 158, 1) 33%, rgba(0, 181, 255, 1) 98%);
+    display: grid;
+    grid-template-columns: repeat(10, 2rem);
+    grid-template-rows: repeat(10, 2rem);
+    border-radius: 20px;
+    box-shadow: 3px 5px 22px 21px #444;
+    order: 1;
+    width: 100%;
+    margin: 1rem 0;
+  }
   .player-container {
+    background-color: #555;
     align-items: center;
     display: flex;
-    flex-flow: row;
+    flex-flow: row wrap;
     order: 2;
+    width: 100%;
   }
 
   .player-menu {
@@ -195,19 +237,49 @@
     justify-content: center;
     margin: 1rem 0;
     padding: 0.5rem 0.5rem;
-    width: 50%;
+    width: 30%;
     box-shadow: 10px 10px 15px #444;
   }
 
-  .board {
-    /* background-color: rgb(132, 236, 158); */
-    background: rgb(132, 236, 158);
-    background: linear-gradient(157deg, rgba(132, 236, 158, 1) 33%, rgba(0, 181, 255, 1) 98%);
-    display: grid;
-    grid-template-columns: repeat(10, 2rem);
-    grid-template-rows: repeat(10, 2rem);
+  .player-info-bar {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .coins {
+    margin: 0;
+  }
+
+  .player-menu-buttons {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: baseline;
+    margin-top: 1rem;
+    padding: 0;
     border-radius: 20px;
-    box-shadow: 12px 15px 20px 15px #444;
-    order: 1;
+    box-shadow: 10px 5px 15px 2px #444;
+  }
+
+  .build-button {
+    border-radius: 10px;
+    border: none;
+    display: flex;
+    flex-flow: column;
+    font-size: 0.6rem;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    padding: 0.7rem 0rem;
+    box-shadow: 10px 10px 15px #444;
+    color: cornsilk;
+  }
+
+  .hide-text {
+    display: none;
   }
 }

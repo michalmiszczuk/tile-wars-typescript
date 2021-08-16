@@ -1,11 +1,20 @@
 .tile {
-  border: 1px solid #555;
+  border: 1px solid black;
   display: flex;
   flex-flow: column wrap;
   justify-content: space-evenly;
   align-items: center;
   font-size: 0.7rem;
   position: relative;
+  cursor: pointer;
+  transition: 100ms;
+  border-top: hidden;
+  border-left: hidden;
+}
+
+.tile:hover {
+  /* background-color: hsl(135, 73%, 82%); */
+  transition: 100ms;
 }
 
 .player1 {
@@ -52,5 +61,39 @@
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@media (max-width: 766px) {
+  .tile {
+    border: 0.5px solid black;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 0.4rem;
+    position: relative;
+  }
+
+  .forces {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+
+  .highlighted {
+    background-color: wheat;
+    transition: 120ms;
+  }
+
+  .army-icon {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 0px;
+    box-shadow: 4px 0px 17px 1px #fff;
+  }
+
+  .built {
+    animation: built 1s infinite ease-in-out;
   }
 }

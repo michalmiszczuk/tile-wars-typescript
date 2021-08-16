@@ -31,7 +31,7 @@ function Tile({ tile, onTileClick, currentPlayer, onDragStart, onDrop, buildingA
 
     const { soldiers, tanks, planes, active, isHighlighted, player, hasMove, hasPlaneBase, hasTankBase, hasSoldierBase } = tile
 
-    const allowDrop = (e: React.DragEvent) => {
+    const allowDrop = (e: React.DragEvent | React.TouchEvent) => {
         e.preventDefault()
     }
 
@@ -46,27 +46,57 @@ function Tile({ tile, onTileClick, currentPlayer, onDragStart, onDrop, buildingA
         hasNoMove1: !hasMove && player === 1,
         hasNoMove2: !hasMove && player === 2,
     })
+    
+    function drag(e: React.TouchEvent){
+        let myLocation = e.changedTouches[0]
+        let target = document.elementFromPoint(myLocation.clientX, myLocation.clientY) as HTMLDivElement | HTMLSpanElement | HTMLImageElement
+        let x = target.getAttribute("data-x")!;
+        let y = target.getAttribute("data-y")!;
+        onDrop(+y, +x)
+    }
+
 
     return (
         <div
+            data-x={tile.x}
+            data-y={tile.y}
             draggable={player === currentPlayer && active && hasMove}
             onDragStart={() => onDragStart(tile.y, tile.x)}
             onDragOver={allowDrop}
+            onTouchStart={() => onDragStart(tile.y, tile.x)}
+            onTouchEnd={(e) => (e.preventDefault(), onTileClick(tile.y, tile.x), drag(e))}
             onDrop={() => onDrop(tile.y, tile.x)}
             onClick={() => onTileClick(tile.y, tile.x)}
             className={tileClass}
         >
-            {active && <div className="forces">
-            <img className={hasSoldierBase ? "army-icon built" : "army-icon"} draggable="false" src={soldiersIcon} width="20px" height="20px" />
-                <span>{soldiers}</span>
+            {active && <div 
+            data-x={tile.x}
+            data-y={tile.y} 
+            className="forces">
+            <img 
+            data-x={tile.x}
+            data-y={tile.y}
+            className={hasSoldierBase ? "army-icon built" : "army-icon"} draggable="false" src={soldiersIcon} width="20px" height="20px" />
+                <span 
+                data-x={tile.x}
+                 data-y={tile.y}>
+                     {soldiers}</span>
             </div>}
-            {active && <div className="forces">
-                <img className={hasTankBase ? "army-icon built" : "army-icon"} draggable="false" src={tankIcon} width="20px" height="20px" />
-                <span>{tanksRounded}</span>
+            {active && <div 
+            data-x={tile.x}
+            data-y={tile.y}
+            className="forces">
+                <img data-x={tile.x}
+            data-y={tile.y} className={hasTankBase ? "army-icon built" : "army-icon"} draggable="false" src={tankIcon} width="20px" height="20px" />
+                <span data-x={tile.x}
+            data-y={tile.y}>{tanksRounded}</span>
             </div>}
-            {active && <div className="forces">
-                <img className={hasPlaneBase ? "army-icon built" : "army-icon"} draggable="false" src={planeIcon} width="20px" height="20px" />
-                <span>{planesRounded}</span>
+            {active && <div data-x={tile.x}
+            data-y={tile.y} className="forces">
+                <img data-x={tile.x}
+            data-y={tile.y} className={hasPlaneBase ? "army-icon built" : "army-icon"} draggable="false" src={planeIcon} width="20px" height="20px" />
+                <span data-x={tile.x}
+            data-y={tile.y}>{planesRounded}</span>
             </div>}
         </div>
 
