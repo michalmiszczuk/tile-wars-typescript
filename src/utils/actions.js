@@ -1,0 +1,18 @@
+export const ACTIONS = {
+  DEDUCTCOINS_P1: "deductcoins_p1",
+  DEDUCTCOINS_P2: "deductcoins_p2",
+  RESETBUILDING: "resetbuilding",
+  SETBOARD: "setboard",
+  SETCURRENTTILE: "setcurrenttile",
+  SETHASNEWMOVE: "sethasnewmove",
+  SETPLANEBASE: "setplanebase",
+  SETPLAYER: "setplayer",
+  SETPLAYER1COINS: "setcoins1",
+  SETPLAYER1UNITS: "setplayer1units",
+  SETPLAYER2COINS: "setcoins2",
+  SETPLAYER2UNITS: "setplayer2units",
+  SETSOLDIERBASE: "setsoldierbase",
+  SETTANKBASE: "settankbase",
+  SETTURNCOUNT: "setturncount",
+  RESTARTGAME: "restartgame",
+};

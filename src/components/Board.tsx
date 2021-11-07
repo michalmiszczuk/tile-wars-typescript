@@ -5,25 +5,8 @@ import './board.css'
 import { countPlanes, countSoldiers, countTanks } from '../utils/countArmy';
 import { Tile, State, ACTIONS_TYPE, getBoard } from '../utils/classes_types';
 import GameRules from './GameRules';
+import { ACTIONS } from '../utils/actions';
 
-const ACTIONS = {
-    DEDUCTCOINS_P1: 'deductcoins_p1',
-    DEDUCTCOINS_P2: 'deductcoins_p2',
-    RESETBUILDING: 'resetbuilding',
-    SETBOARD: 'setboard',
-    SETCURRENTTILE: 'setcurrenttile',
-    SETHASNEWMOVE: 'sethasnewmove',
-    SETPLANEBASE: 'setplanebase',
-    SETPLAYER: 'setplayer',
-    SETPLAYER1COINS: 'setcoins1',
-    SETPLAYER1UNITS: 'setplayer1units',
-    SETPLAYER2COINS: 'setcoins2',
-    SETPLAYER2UNITS: 'setplayer2units',
-    SETSOLDIERBASE: 'setsoldierbase',
-    SETTANKBASE: 'settankbase',
-    SETTURNCOUNT: 'setturncount',
-    RESTARTGAME: 'restartgame'
-}
 
 function Board() {
     function reducer(gameState: State, action: ACTIONS_TYPE): State {
@@ -98,7 +81,7 @@ function Board() {
     }
 
     const [gameState, dispatch] = useReducer(reducer, intialState)
-    const [showGameRules, setShowGameRules] = useState(false)
+    const [showGameRules, setShowGameRules] = useState(true)
 
     const { board, currentTile, hasNewMove, planeBase,
         player, player1, player2, soldierBase, tankBase, turnCount } = gameState
@@ -148,7 +131,7 @@ function Board() {
                 dispatch({type: ACTIONS.RESTARTGAME})
             }
         }
-    }, [player])
+    }, [player, board, turnCount])
 
     const handleEndTurn = () => {
         const newPlayer = player === 1 ? 2 : 1
@@ -223,7 +206,6 @@ function Board() {
 
     const handleOnDrop = (y: number, x: number) => {
         const {soldiers, tanks, planes} = currentTile
-        // console.log("THIS", y, x)
         const droppedTile = board[y][x]
         const newBoard = board.map(row => row.map(tile => {
             if (tile.id === droppedTile.id && droppedTile.isHighlighted && droppedTile.player !== player
@@ -266,7 +248,7 @@ function Board() {
 
     return (
         <div className="main-wrapper">
-            <div className={showGameRules ? "main-container blurred" : "main-container"}>
+            <div className="main-container">
                 {isMobile || <PlayerMenu
                             id={1}
                             playerInfo={player1}

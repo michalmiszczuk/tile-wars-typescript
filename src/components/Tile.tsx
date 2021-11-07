@@ -64,37 +64,25 @@ function Tile({ tile, onTileClick, currentPlayer, onDragStart, onDrop, buildingA
             onDragStart={() => onDragStart(tile.y, tile.x)}
             onDragOver={allowDrop}
             onTouchStart={() => onDragStart(tile.y, tile.x)}
-            onTouchEnd={(e) => (e.preventDefault(), onTileClick(tile.y, tile.x), drag(e))}
+            onTouchEnd={(e) => ((e.preventDefault(), onTileClick(tile.y, tile.x), drag(e)))}
             onDrop={() => onDrop(tile.y, tile.x)}
             onClick={() => onTileClick(tile.y, tile.x)}
             className={tileClass}
         >
-            {active && <div 
-            data-x={tile.x}
-            data-y={tile.y} 
-            className="forces">
-            <img 
-            data-x={tile.x}
-            data-y={tile.y}
-            className={hasSoldierBase ? "army-icon built" : "army-icon"} draggable="false" src={soldiersIcon} width="20px" height="20px" />
-                <span 
-                data-x={tile.x}
-                 data-y={tile.y}>
-                     {soldiers}</span>
+            {active && <div  data-x={tile.x}  data-y={tile.y}  className="forces">
+            <img  data-x={tile.x}  data-y={tile.y}
+            className={hasSoldierBase ? "army-icon built" : "army-icon"} draggable="false" src={soldiersIcon} width="20px" height="20px" alt="soliders-icon" />
+            <span data-x={tile.x}  data-y={tile.y}> {soldiers}</span>
             </div>}
-            {active && <div 
-            data-x={tile.x}
-            data-y={tile.y}
-            className="forces">
-                <img data-x={tile.x}
-            data-y={tile.y} className={hasTankBase ? "army-icon built" : "army-icon"} draggable="false" src={tankIcon} width="20px" height="20px" />
-                <span data-x={tile.x}
+            {active && <div data-x={tile.x}  data-y={tile.y} className="forces">
+            <img data-x={tile.x} data-y={tile.y} className={hasTankBase ? "army-icon built" : "army-icon"} draggable="false" src={tankIcon} width="20px" height="20px"  alt="tank-icon"/>
+            <span data-x={tile.x}
             data-y={tile.y}>{tanksRounded}</span>
             </div>}
             {active && <div data-x={tile.x}
             data-y={tile.y} className="forces">
                 <img data-x={tile.x}
-            data-y={tile.y} className={hasPlaneBase ? "army-icon built" : "army-icon"} draggable="false" src={planeIcon} width="20px" height="20px" />
+            data-y={tile.y} className={hasPlaneBase ? "army-icon built" : "army-icon"} draggable="false" src={planeIcon} width="20px" height="20px" alt="plane-icon" />
                 <span data-x={tile.x}
             data-y={tile.y}>{planesRounded}</span>
             </div>}

@@ -29,7 +29,7 @@ function PlayerMenu({ id, currentPlayer, playerInfo, turnCount, onFinishTurn, se
             <div className="player-info-bar">
                 <div className="player-menu">PLAYER {id}</div>
                 <div className="coins">
-                    <img draggable="false" className="coin-icon" src={coin} width="20px" height="20px" />
+                    <img draggable="false" className="coin-icon" src={coin} width="20px" height="20px" alt="coin-icon" />
                     {coins}
                 </div>
                 <div className="army-info-wrapper">
@@ -39,7 +39,6 @@ function PlayerMenu({ id, currentPlayer, playerInfo, turnCount, onFinishTurn, se
                     <div className="army-info">PLANES:  {Math.floor(planes)} </div>
                 </div>
             </div>
-           
               {currentPlayer === id &&  <PlayerButtons
                     onFinishTurn={onFinishTurn}
                     setSoldierBase={setSoldierBase}

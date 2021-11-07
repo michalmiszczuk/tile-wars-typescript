@@ -1,4 +1,3 @@
-import React from 'react';
 import closeIcon from '../static/closeicon.png'
 import './game-rules.css'
 
@@ -8,7 +7,8 @@ interface GameRulesProps {
 
 function GameRules({ setShowGameRules }: GameRulesProps) {
     return (
-        <div className="game-rules">
+        <div className="game-rules-wrapper">
+            <div className="game-rules">
                 <div className="game-title">TILE WARS</div>
                 <div className="rules-text">
                 <div className="rules-title">GAME RULES</div>
@@ -17,7 +17,8 @@ function GameRules({ setShowGameRules }: GameRulesProps) {
                 builds his forces. Build bases to increase soldiers, tanks or plane production. Take all enemy fields and be victorious.
                 <br/> Good Luck !
                 </div>
-                <img className="rules-icon"  draggable="false" src={closeIcon} width="20px" height="20px" onClick={setShowGameRules}/>
+                <img className="rules-icon"  draggable="false" src={closeIcon} width="20px" height="20px" onClick={setShowGameRules} alt="close-icon"/>
+         </div>
         </div>
     );
 }

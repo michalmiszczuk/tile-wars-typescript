@@ -1,16 +1,8 @@
-.main-wrapper {
-}
-
 .main-container {
   background: rgb(2, 0, 36);
   background: linear-gradient(142deg, rgba(2, 0, 36, 1) 0%, rgba(79, 79, 108, 1) 51%);
   display: flex;
   padding: 2rem 0;
-  height: 100vh;
-}
-
-.blurred {
-  filter: blur(2px);
 }
 
 .board {
@@ -172,15 +164,6 @@
   margin-right: 0.5rem;
 }
 
-@keyframes game-rules {
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
 @keyframes board {
   0% {
     box-shadow: 12px 15px 20px 15px #444;
@@ -192,22 +175,16 @@
     box-shadow: 12px 15px 20px 15px #444;
   }
 }
-@media (max-width: 766px) {
-  .main-wrapper {
-    /* clip-path: polygon(76% 4%, 0 66%, 100% 100%); */
-  }
-
+@media (max-width: 767px) {
   .main-container {
     background-color: #555;
     display: flex;
     flex-flow: column;
     align-items: center;
     padding: 0;
-    /* height: 92vh; */
   }
 
   .board {
-    /* background-color: rgb(132, 236, 158); */
     background: rgb(132, 236, 158);
     background: linear-gradient(157deg, rgba(132, 236, 158, 1) 33%, rgba(0, 181, 255, 1) 98%);
     display: grid;
@@ -219,6 +196,11 @@
     width: 100%;
     margin: 1rem 0;
   }
+
+  .coins,
+  .army-info-wrapper {
+    box-shadow: none;
+  }
   .player-container {
     background-color: #555;
     align-items: center;
@@ -229,7 +211,7 @@
   }
 
   .player-menu {
-    background-color: #666;
+    background-color: transparent;
     border-radius: 10px;
     color: white;
     display: flex;
@@ -238,7 +220,7 @@
     margin: 1rem 0;
     padding: 0.5rem 0.5rem;
     width: 30%;
-    box-shadow: 10px 10px 15px #444;
+    box-shadow: none;
   }
 
   .player-info-bar {
@@ -247,6 +229,11 @@
     flex-flow: row;
     justify-content: space-evenly;
     align-items: center;
+  }
+
+  .end-turn {
+    width: 90%;
+    margin: 1rem 0 2rem;
   }
 
   .coins {
@@ -261,8 +248,7 @@
     align-items: baseline;
     margin-top: 1rem;
     padding: 0;
-    border-radius: 20px;
-    box-shadow: 10px 5px 15px 2px #444;
+    box-shadow: none;
   }
 
   .build-button {
