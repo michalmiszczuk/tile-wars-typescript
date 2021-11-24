@@ -13,15 +13,17 @@ interface PlayerMenuProps {
     }
     turnCount: number;
     currentPlayer: number;
+    hasNewMove: Boolean;
     onFinishTurn: () => void;
     setSoldierBase: () => void;
     setTankBase: () => void;
     setPlaneBase: () => void;
 }
 
-function PlayerMenu({ id, currentPlayer, playerInfo, turnCount, onFinishTurn, setSoldierBase, setTankBase, setPlaneBase }: PlayerMenuProps) {
+function PlayerMenu({ id, currentPlayer, playerInfo, turnCount, onFinishTurn, setSoldierBase, setTankBase, setPlaneBase, hasNewMove}: PlayerMenuProps) {
 
     const { coins, soldiers, tanks, planes } = playerInfo
+    const hasMove = currentPlayer === id && hasNewMove ? "YES" : "NO"
 
     return (
        
@@ -33,6 +35,7 @@ function PlayerMenu({ id, currentPlayer, playerInfo, turnCount, onFinishTurn, se
                     {coins}
                 </div>
                 <div className="army-info-wrapper">
+                    <div className="army-info">NEW MOVE : {hasMove}</div>
                     <div className="army-info">TURN : {Math.floor(turnCount)}</div>
                     <div className="army-info">SOLDIERS: {Math.floor(soldiers)} </div>
                     <div className="army-info">TANKS:  {Math.floor(tanks)} </div>

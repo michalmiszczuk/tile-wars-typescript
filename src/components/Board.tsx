@@ -1,11 +1,11 @@
 import { useEffect, useReducer, useRef, useState } from 'react';
 import TileComponent from './Tile';
 import PlayerMenu from './PlayerMenu';
-import './board.css'
-import { countPlanes, countSoldiers, countTanks } from '../utils/countArmy';
-import { Tile, State, ACTIONS_TYPE, getBoard } from '../utils/classes_types';
 import GameRules from './GameRules';
 import { ACTIONS } from '../utils/actions';
+import { countPlanes, countSoldiers, countTanks } from '../utils/countArmy';
+import { Tile, State, getBoard, ACTIONS_TYPE } from '../utils/classes_types';
+import './board.css'
 
 
 function Board() {
@@ -89,13 +89,10 @@ function Board() {
     const timerCount = 1000
     const buildingActive = soldierBase || tankBase || planeBase
 
-    const prevBoard = useRef<Tile[][] | null>(null)
-    prevBoard.current = board
-
     useEffect(() => { 
         const id = setInterval(() => {
             let activeFields = 0
-            const newBoard = prevBoard.current!.map(row => row.map(tile => {
+            const newBoard = board.map(row => row.map(tile => {
                 if (tile.active && tile.player !== player) {
                     activeFields += 1
                     tile.buildArmy()
@@ -106,7 +103,7 @@ function Board() {
 
             if (player === 1) dispatch({ type: ACTIONS.SETPLAYER2COINS, payload: { activeFields } })
             if (player === 2) dispatch({ type: ACTIONS.SETPLAYER1COINS, payload: { activeFields } })
-            const flattenedBoard = prevBoard.current!.flat()
+            const flattenedBoard = board.flat()
             
             let totalSoldiers1 = countSoldiers(flattenedBoard, 1)
             let totalTanks1 = countTanks(flattenedBoard, 1)
@@ -122,10 +119,9 @@ function Board() {
      return () => clearInterval(id) }, [player])
     
     useEffect(() => {
-        const flattenedBoard = board.flat()
         if (turnCount > 2) {
-            const gameContinue = flattenedBoard.find(tile => tile.player === 1)
-            const gameContinue2 = flattenedBoard.find(tile => tile.player === 2)
+            const gameContinue = board.flat().find(tile => tile.player === 1)
+            const gameContinue2 = board.flat().find(tile => tile.player === 2)
             if (!gameContinue || !gameContinue2) {
                 alert(`Player ${player} has won !`);
                 dispatch({type: ACTIONS.RESTARTGAME})
@@ -251,6 +247,7 @@ function Board() {
             <div className="main-container">
                 {isMobile || <PlayerMenu
                             id={1}
+                            hasNewMove={hasNewMove}
                             playerInfo={player1}
                             turnCount={turnCount}
                             onFinishTurn={handleEndTurn}
@@ -261,6 +258,7 @@ function Board() {
                         />}
                     {player === 1 && isMobile && <PlayerMenu
                         id={1}
+                        hasNewMove={hasNewMove}
                         playerInfo={player1}
                         turnCount={turnCount}
                         onFinishTurn={handleEndTurn}
@@ -287,6 +285,7 @@ function Board() {
                     {isMobile || <PlayerMenu
                             id={2}
                             playerInfo={player2}
+                            hasNewMove={hasNewMove}
                             turnCount={turnCount}
                             onFinishTurn={handleEndTurn}
                             setSoldierBase={() => dispatch({ type: ACTIONS.SETSOLDIERBASE })}
@@ -297,6 +296,7 @@ function Board() {
                     {player === 2 && isMobile && <PlayerMenu
                         id={2}
                         playerInfo={player2}
+                        hasNewMove={hasNewMove}
                         turnCount={turnCount}
                         onFinishTurn={handleEndTurn}
                         setSoldierBase={() => dispatch({ type: ACTIONS.SETSOLDIERBASE })}
