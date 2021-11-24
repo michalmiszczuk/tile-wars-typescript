@@ -1,11 +1,12 @@
-import { useEffect, useReducer, useRef, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import TileComponent from './Tile';
 import PlayerMenu from './PlayerMenu';
 import GameRules from './GameRules';
 import { ACTIONS } from '../utils/actions';
 import { countPlanes, countSoldiers, countTanks } from '../utils/countArmy';
-import { Tile, State, getBoard, ACTIONS_TYPE } from '../utils/classes_types';
+import { State, getBoard, ACTIONS_TYPE } from '../utils/classes_types';
 import './board.css'
+import GameOver from './GameOver';
 
 
 function Board() {
@@ -82,6 +83,7 @@ function Board() {
 
     const [gameState, dispatch] = useReducer(reducer, intialState)
     const [showGameRules, setShowGameRules] = useState(true)
+    const [gameOverMsg, setGameOverMsg] = useState('')
 
     const { board, currentTile, hasNewMove, planeBase,
         player, player1, player2, soldierBase, tankBase, turnCount } = gameState
@@ -89,6 +91,7 @@ function Board() {
     const timerCount = 1000
     const buildingActive = soldierBase || tankBase || planeBase
 
+    // Computing army build and earned coins per fixed period of time for the idle player //
     useEffect(() => { 
         const id = setInterval(() => {
             let activeFields = 0
@@ -103,31 +106,39 @@ function Board() {
 
             if (player === 1) dispatch({ type: ACTIONS.SETPLAYER2COINS, payload: { activeFields } })
             if (player === 2) dispatch({ type: ACTIONS.SETPLAYER1COINS, payload: { activeFields } })
-            const flattenedBoard = board.flat()
+            const boardToCount = board.flat()
             
-            let totalSoldiers1 = countSoldiers(flattenedBoard, 1)
-            let totalTanks1 = countTanks(flattenedBoard, 1)
-            let totalPlanes1 = countPlanes(flattenedBoard, 1)
+            let totalSoldiers1 = countSoldiers(boardToCount, 1)
+            let totalTanks1 = countTanks(boardToCount, 1)
+            let totalPlanes1 = countPlanes(boardToCount, 1)
             
-            let totalSoldiers2 = countSoldiers(flattenedBoard, 2)
-            let totalTanks2 = countTanks(flattenedBoard, 2)
-            let totalPlanes2 = countPlanes(flattenedBoard, 2)
+            let totalSoldiers2 = countSoldiers(boardToCount, 2)
+            let totalTanks2 = countTanks(boardToCount, 2)
+            let totalPlanes2 = countPlanes(boardToCount, 2)
             dispatch({ type: ACTIONS.SETPLAYER1UNITS, payload: { totalSoldiers1, totalTanks1, totalPlanes1 } })
             dispatch({ type: ACTIONS.SETPLAYER2UNITS, payload: { totalSoldiers2, totalTanks2, totalPlanes2 } })
 
         }, timerCount)
-     return () => clearInterval(id) }, [player])
+     return () => clearInterval(id) }, [player, board])
     
+    // Checking if a player has conquered the other one or for the draw //
     useEffect(() => {
         if (turnCount > 2) {
             const gameContinue = board.flat().find(tile => tile.player === 1)
             const gameContinue2 = board.flat().find(tile => tile.player === 2)
             if (!gameContinue || !gameContinue2) {
-                alert(`Player ${player} has won !`);
-                dispatch({type: ACTIONS.RESTARTGAME})
+                setGameOverMsg(`Player ${player} has won !`)
+            }
+            if (!gameContinue && !gameContinue2) {
+                setGameOverMsg("DRAW !")
             }
         }
     }, [player, board, turnCount])
+
+    const handleGameOver = () => {
+        setGameOverMsg('')
+        dispatch({type: ACTIONS.RESTARTGAME})
+    }
 
     const handleEndTurn = () => {
         const newPlayer = player === 1 ? 2 : 1
@@ -306,6 +317,7 @@ function Board() {
                     />}
             </div>
             {showGameRules && <GameRules setShowGameRules={() => setShowGameRules(false)}/>}
+            {gameOverMsg && <GameOver gameOverMsg={gameOverMsg} resetGame={handleGameOver}/>}
          </div>
     );
 }

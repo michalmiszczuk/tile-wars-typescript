@@ -1,4 +1,4 @@
-.game-rules-wrapper {
+.modal-wrapper {
   height: 100vh;
   width: 100%;
   position: absolute;
@@ -8,7 +8,7 @@
   backdrop-filter: blur(2px);
 }
 
-.game-rules {
+.modal-content {
   width: 40rem;
   height: 20rem;
   background-color: #555;
@@ -23,14 +23,19 @@
   align-items: center;
 }
 
-.game-title {
+#game-over {
+  width: 20rem;
+  height: 10rem;
+}
+
+.modal-title {
   color: #fff;
   font-size: 1.5rem;
   font-style: italic;
   margin-bottom: 1rem;
 }
 
-.rules-icon {
+.modal-icon {
   position: absolute;
   top: 2rem;
   right: 5%;
@@ -39,13 +44,13 @@
   border-radius: 20px;
 }
 
-.rules-title {
+.modal-subtitle {
   color: #fff;
   padding: 1rem 0;
   /* box-shadow: 5px 5px 10px 2px #666; */
 }
 
-.rules-text {
+.modal-text {
   color: #fff;
   padding: 0 2rem 2rem 1rem;
   box-shadow: 5px 5px 10px 5px #666;
