@@ -1,4 +1,3 @@
-import React from 'react';
 import PlayerButtons from './PlayerButtons';
 import coin from '../static/coin.svg'
 import './board.css'

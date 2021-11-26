@@ -1,12 +1,12 @@
 import { useEffect, useReducer, useState } from 'react';
-import TileComponent from './Tile';
-import PlayerMenu from './PlayerMenu';
+import GameOver from './GameOver';
 import GameRules from './GameRules';
+import PlayerMenu from './PlayerMenu';
+import TileComponent from './Tile';
 import { ACTIONS } from '../utils/actions';
 import { countPlanes, countSoldiers, countTanks } from '../utils/countArmy';
 import { State, getBoard, ACTIONS_TYPE } from '../utils/classes_types';
 import './board.css'
-import GameOver from './GameOver';
 
 
 function Board() {
@@ -88,10 +88,10 @@ function Board() {
     const { board, currentTile, hasNewMove, planeBase,
         player, player1, player2, soldierBase, tankBase, turnCount } = gameState
 
-    const timerCount = 1000
-    const buildingActive = soldierBase || tankBase || planeBase
+    const timerCount = 1000 // time for one round in ms
+    const buildingActive = soldierBase || tankBase || planeBase // checking if the player activated building mode
 
-    // Computing army build and earned coins per fixed period of time for the idle player //
+    // Computing army build and earned coins per fixed period of time for the idle player
     useEffect(() => { 
         const id = setInterval(() => {
             let activeFields = 0
@@ -121,7 +121,7 @@ function Board() {
         }, timerCount)
      return () => clearInterval(id) }, [player, board])
     
-    // Checking if a player has conquered the other one or for the draw //
+    // Checking if a player has conquered the other one or for the draw
     useEffect(() => {
         if (turnCount > 2) {
             const gameContinue = board.flat().find(tile => tile.player === 1)
@@ -153,10 +153,11 @@ function Board() {
         dispatch({ type: ACTIONS.SETBOARD, payload: { newBoard } })
     }
 
-
+    // function for taking an empty tile and building bases
     const handleTileClick = (y: number, x: number) => {
         const clickedTile = board[y][x]
       
+        // firstly checking if the clicked tile was taken
         if (!clickedTile.active && hasNewMove) {
             const newBoard = board.map(row => row.map(tile => {
                 if (tile.id === clickedTile.id)
@@ -167,6 +168,7 @@ function Board() {
             dispatch({ type: ACTIONS.SETHASNEWMOVE, payload: false })
         }
 
+        // if yes, then if building mode is active the current player can build bases
         if (soldierBase || tankBase || planeBase) {
             const currentPlayer = player === 1 ? player1 : player2
             const deduceCoins = player === 1 ? ACTIONS.DEDUCTCOINS_P1 : ACTIONS.DEDUCTCOINS_P2
@@ -193,7 +195,7 @@ function Board() {
         }
     }
 
-    
+    // function for highlighting possible moves on drag start
     const handleDragStart = (y: number, x: number) => {
         const clickedTile = board[y][x]
         dispatch({ type: ACTIONS.SETCURRENTTILE, payload: clickedTile })
@@ -210,22 +212,25 @@ function Board() {
 
     }
   
-
+    // computing multiply actions when the current player drops his army over another tile 
     const handleOnDrop = (y: number, x: number) => {
         const {soldiers, tanks, planes} = currentTile
         const droppedTile = board[y][x]
         const newBoard = board.map(row => row.map(tile => {
+            // dragging army over empty file
             if (tile.id === droppedTile.id && droppedTile.isHighlighted && droppedTile.player !== player
                 && droppedTile.active === false && currentTile.soldiers !== 0) {
                     tile.resetTile(player, soldiers, tanks, planes)
                     currentTile.resetTile(player, 0, 0, 0)
                 }
-           
+           // dragging army over the same player tile
             if (tile.id === droppedTile.id && droppedTile.isHighlighted  && droppedTile.player === player     
                  && currentTile.soldiers !== 0) {
                     tile.resetTile(player, soldiers + tile.soldiers, tanks + tile.tanks, planes + tile.planes)
                     currentTile.resetTile(player, 0, 0, 0) 
                   }
+
+            // dragging army over the opponent tile
             if (tile.id === droppedTile.id && droppedTile.isHighlighted && droppedTile.player !== player && droppedTile.active) {
                     let attackerValue = currentTile.soldiers + currentTile.tanks * 2.5 + currentTile.planes * 5
                     let denfenderValue = droppedTile.soldiers + droppedTile.tanks * 2.5 + droppedTile.planes * 5

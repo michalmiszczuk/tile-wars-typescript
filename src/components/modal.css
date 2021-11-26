@@ -10,7 +10,7 @@
 
 .modal-content {
   width: 40rem;
-  height: 20rem;
+  height: 15rem;
   background-color: #555;
   position: absolute;
   top: 50%;
@@ -51,14 +51,15 @@
 }
 
 .modal-text {
+  width: 100%;
   color: #fff;
   padding: 0 2rem 2rem 1rem;
-  box-shadow: 5px 5px 10px 5px #666;
+  box-shadow: 0 0 20px 0px #666;
   text-align: center;
 }
 
 @media (max-width: 767px) {
-  .game-rules {
+  .modal-content {
     width: 80%;
     height: 50%;
   }
