@@ -176,7 +176,22 @@
     box-shadow: 12px 15px 20px 15px #444;
   }
 }
+
+@media (min-width: 767px) and (max-width: 1200px) {
+  .board {
+    grid-template-columns: repeat(10, 3rem);
+    grid-template-rows: repeat(10, 3rem);
+  }
+}
+
 @media (max-width: 767px) {
+  .board {
+    grid-template-columns: repeat(10, 2rem);
+    grid-template-rows: repeat(10, 2rem);
+  }
+}
+
+@media (max-width: 1200px) {
   .main-container {
     background-color: #555;
     display: flex;
@@ -189,8 +204,7 @@
     background: rgb(132, 236, 158);
     background: linear-gradient(157deg, rgba(132, 236, 158, 1) 33%, rgba(0, 181, 255, 1) 98%);
     display: grid;
-    grid-template-columns: repeat(10, 2rem);
-    grid-template-rows: repeat(10, 2rem);
+
     border-radius: 20px;
     box-shadow: 3px 5px 22px 21px #444;
     order: 1;
@@ -203,7 +217,7 @@
     box-shadow: none;
   }
   .player-container {
-    background-color: #555;
+    background-color: transparent;
     align-items: center;
     display: flex;
     flex-flow: row wrap;

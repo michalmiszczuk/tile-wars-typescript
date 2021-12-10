@@ -256,7 +256,7 @@ function Board() {
         dispatch({ type: ACTIONS.SETBOARD, payload: { newBoard } })
     }
     
-    const isMobile = window.screen.width < 768 ? true: false!
+    const isMobile = window.screen.width < 1200 ? true: false!
 
     return (
         <div className="main-wrapper">
